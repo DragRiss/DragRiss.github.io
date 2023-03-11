@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .con {
+            /* width: 2000px; */
+            height: 100%;
+            text-align: center;
+
+        }
+
+        .top {
+            margin: 30px auto;
+            text-align: center;
+            width: 1000px;
+        }
+
+        .top-ul {
+            /* width: 500px; */
+            display: flex;
+            text-align: center;
+            justify-content: space-around;
+            background: #f5f5f6;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .left,
+        .right,
+        .top-ul li {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background: #ffffff;
+            color: #4e6ef2;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .top-ul .on {
+            background-color: #4e6ef2;
+            color: #c4e8fe;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="con">
+        <div class="top">
+            <ul class="top-ul">
+                <div class="left ">
+                    &lt;&lt;</div>
+                <li class="checks on">1</li>
+                <li class="checks">2</li>
+                <li class="checks">3</li>
+                <li class="checks">4</li>
+                <li class="checks">5</li>
+                <li class="checks">6</li>
+                <li class="checks">7</li>
+                <li class="checks">8</li>
+                <li class="checks">9</li>
+                <li class="checks">10</li>
+                <div class="right">&gt;&gt;</div>
+            </ul>
+        </div>
+        <style>
+            table {
+                margin: 0 auto;
+                margin-top: 50px;
+                width: 1200px;
+                border-collapse: collapse;
+                border: 1px solid #e4e7eb;
+            }
+
+            th {
+                border: 1px solid #e4e7eb;
+                background-color: #e9ecef;
+                height: 40px;
+                color: #6d777d;
+            }
+
+            tr:nth-child(even) {
+                background: #ececec;
+            }
+
+            td {
+                border: 1px solid #e9ecef;
+            }
+
+            .title,
+            .seededTitle {
+                width: 80px;
+            }
+
+            .threeTitle {
+                padding: 5px;
+            }
+        </style>
+        <table>
+            <!-- <tr><th class="title">序号</th><th class="seededTitle">标题</th><th>内容</th></tr> -->
+        </table>
+    </div>
+</body>
+<script>
+    var li = document.querySelectorAll(".checks")
+    var left = document.querySelector(".left")
+    var right = document.querySelector(".right")
+    var table = document.querySelector("table")
+
+
+    //  https://www.alapi.cn/api/view/11?token=rtEGiZKF6ePFUHov
+
+    function fn(page) {
+        if (!page) {
+            page = 1
+        }
+        var xhr = new XMLHttpRequest()
+
+        xhr.open('GET', 'https://v2.alapi.cn/api/joke?token=rtEGiZKF6ePFUHov&num=10&page=' + page)
+
+        xhr.send()
+        var str = '<tr><th class="title">序号</th><th class="seededTitle">标题</th><th>内容</th></tr>'
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var date = JSON.parse(xhr.responseText).data
+                console.log(date);
+
+                date.map(function (item, index) {
+                    var num = index + 1
+                    return str += '<tr><td class="title">' + num + '</td><td class="seededTitle">' + item.title + '</td><td class="threeTitle">' + item.content + '</td></tr>'
+                })
+                table.innerHTML = str
+            }
+        }
+
+    }
+    fn()
+    li.forEach(function (item, index) {
+        item.onclick = function () {
+            var num2 = index + 1
+            li.forEach(function (item2) {
+                item2.classList.remove("on")
+            })
+            item.classList.add("on")
+            fn(num2)
+        }
+    })
+    var num3 = 0
+    right.onclick = () => {
+        if (num3 >= 9) {
+            return
+        }
+        li.forEach((item, index) => {
+            if (item.classList.contains('on')) {
+                num3 = index + 1
+            }
+            item.classList.remove('on')
+
+        })
+        li[num3].classList.add('on')
+        fn(num3 + 1)
+    }
+    left.onclick = function () {
+        li.forEach(function (item, index) {
+            if (item.classList.contains('on')) {
+                item.classList.remove('on')
+
+                return
+            } else {
+                li[index - 1].classList.add('on')
+                fn(index)
+            }
+
+        })
+    }
+
+</script>
+
+</html>

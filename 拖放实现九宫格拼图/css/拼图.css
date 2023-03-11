@@ -1,0 +1,35 @@
+.stage {
+  width: 300px;
+  height: 300px;
+  background-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+.stage > div {
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 0 0 1px white inset;
+  background-color: lightcoral;
+  background-image: url('../image/image1.jpg');
+  background-size: 300px auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.3s;
+}
+.stage > div.draging {
+  transform: scale(0.8);
+}
+.stage > div.overing {
+  animation: overing 0.3s linear infinite alternate;
+}
+@keyframes overing {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.8);
+  }
+}
+/*# sourceMappingURL=./拼图.css.map */

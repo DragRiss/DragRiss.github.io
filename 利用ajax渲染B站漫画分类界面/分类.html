@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="referrer" content="never">
+    <link rel="shortcut icon" href="./image/favicon.ico">
+    <link rel="stylesheet" href="./css/banner.css">
+    <script src="./jquery-3.6.3.js"></script>
+    <link rel="stylesheet" href="./bootstrap-3.4.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./bootstrap-3.4.1/dist/css/bootstrap-theme.css">
+    <script src="./bootstrap-3.4.1/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./ihover-gh-pages/src/ihover.css">
+</head>
+
+<body>
+    <!-- 顶部导航 -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- 图标 -->
+
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="./image/logo.png">
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="navbar-left">
+
+                    </div>
+
+                    <div class="navbar-right">
+                        <!-- <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div> -->
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </nav>
+
+
+
+
+    <!-- 右侧导航 -->
+
+    <!-- 分类列表 -->
+    <section class="all-label"></section>
+    <!-- 漫画图片 -->
+    <div class="button-list">
+        <ul class="list"></ul>
+    </div>
+    <!-- 文本最末 -->
+    <div class="more">木有更多惹 _(:3 」∠)_</div>
+    <div class="noinser"><img src="./image/bea10bfe88465.png" alt="">
+        <p>什么都没有 ＞︿＜</p>
+    </div>
+
+    <!-- 底部版权标志 -->
+
+</body>
+<script>
+    // TODO 可加防抖
+    //封装渲染函数
+    function fn1() {
+        $.get("https://apis.netstart.cn/bcomic/ClassPage", query, function (res) {
+            // console.log(res.data);
+            res.data.map(function (item) {
+                if (item.is_finish) {
+                    $('.list').append($('<li class="small-img">' + '<a href="https://manga.bilibili.com/detail/mc' + item.season_id + '"><img src="' + item.vertical_cover + '" alt=""></a><p>' + item.title + '</p><p>[完结] 共 ' + item.total + '话<p></li>'))
+                }
+                else {
+                    $('.list').append($('<li class="small-img">' + '<a href="https://manga.bilibili.com/detail/mc' + item.season_id + '"><img src="' + item.vertical_cover + '" alt=""></a><p>' + item.title + '</p><p>更新至 ' + item.last_short_title + '<p></li>'))
+                }
+
+            });
+
+            if (res.data.length == 0) {
+                $('.more').text("")
+                $('.noinser').css("display", "block")
+                return;
+            }
+
+        })
+
+
+
+
+    }
+
+    //测试参数=>字段key：默认参数:value
+    var query = {
+        styleId: -1,
+        areaId: -1,
+        isFinish: -1,
+        order: 0,
+        pageNum: 1,
+        pageSize: 30,
+        isFree: -1,
+    };
+
+
+    //封装方法
+    function generateLabelList(name, list, key, value) {
+        var $ul = $('<ul></ul>')
+        //单独添加两个主标题与全部出来
+        $ul.append($('<li class="title">' + name + '</li>'))
+        $ul.append($('<li class="active" data-id=' + value + ' data-key=' + key + '>全部</li>'))
+
+        //遍历渲染
+        //     list.map(function(item,index){
+        //        return $ul.append($('<li data-id='+item.id+' data-key='+key+' >'+item.name+'</li>'))
+        //    })
+        list.forEach((item, index) => {
+            $ul.append($('<li data-id=' + item.id + ' data-key=' + key + ' >' + item.name + '</li>'))
+        });
+        // //添加此渲染的列表到section中      
+        $('section.all-label').append($ul)
+
+    }
+
+    $.get("https://apis.netstart.cn/bcomic/AllLabel", function (res) {
+        // console.log(res.data);
+        //调用函数进行渲染
+        generateLabelList("题材", res.data.styles, "styleId", -1);
+        generateLabelList("地区", res.data.areas, "areaId", -1);
+        generateLabelList("进度", res.data.status, "isFinish", -1);
+        generateLabelList("收费", res.data.prices, "isFree", -1);
+        generateLabelList("排序", res.data.orders, "order", 0);
+        //设置点击事件
+        $('.all-label ul li').on("click", function () {
+
+
+            // 获取每个点击对应的key和id值
+            // console.log($(this).data("key"),$(this).data("id"));
+            //改变点击时对应的key，把它变为id,并给点击的对应高亮
+            query[$(this).data("key")] = $(this).data("id")
+            $(this).addClass('active').siblings().removeClass("active")
+            //清空list列表
+            // $('.list').html("")
+            $('.list').empty("")
+            //遍历出下面的图片列表
+            fn1()
+
+        })
+
+
+
+    })
+
+    // 添加默认渲染全部的界面
+    $.get("https://apis.netstart.cn/bcomic/ClassPage", query, function (res) {
+        // console.log(res.data);
+        res.data.map(function (item) {
+            if (item.is_finish) {
+                $('.list').append($('<li class="small-img">' + '<a href="https://manga.bilibili.com/detail/mc' + item.season_id + '"><img src="' + item.vertical_cover + '" alt=""></a><p>' + item.title + '</p><p>[完结] 共 ' + item.total + '话<p></li>'))
+            }
+            else {
+                $('.list').append($('<li class="small-img">' + '<a href="https://manga.bilibili.com/detail/mc' + item.season_id + '"><img src="' + item.vertical_cover + '" alt=""></a><p>' + item.title + '</p><p>更新至 ' + item.last_short_title + '<p></li>'))
+            }
+        })
+
+    })
+    //判断滚动事件进行添加动态数据
+    window.addEventListener('scroll', function () {
+        if (window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight - 100) {
+            query.pageNum += 1;
+            fn1()
+        }
+
+    }
+    )
+</script>
+
+</html>

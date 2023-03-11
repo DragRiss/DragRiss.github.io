@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    body {
+        background-color: rgba(#bebebe);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .con {
+        margin: 50px auto;
+        display: flex;
+        justify-content: space-evenly;
+        background: white;
+        width: 1400px;
+        height: 600px;
+        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .left {
+        width: 800px;
+        height: 500px;
+        margin-top: 50px;
+        background-size: cover;
+        overflow: hidden;
+
+    }
+
+
+    .left ul li {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .right {
+        width: 200px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+
+
+    .box {
+        position: relative;
+        width: 200px;
+        height: 90px;
+        right: 0;
+        margin-top: 25px;
+        opacity: 0.5;
+    }
+
+    .box img {
+        position: absolute;
+        width: 200px;
+        height: 90px;
+        /* 小图片上移 */
+        transition: .5s;
+        right: 0;
+        
+    }
+
+    .on {
+        width: 200px;
+        height: 90px;
+        position: absolute;
+        border: 5px solid #711c00;
+        border-radius: 3%;
+        margin-top: 21px;
+        margin-left: -4px;
+        z-index: 1;
+    }
+
+    .on::before {
+
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        left: -18px;
+        top: 34px;
+        border: 8px solid transparent;
+        border-right-color: #711c00;
+        z-index: 10;
+        visibility: none;
+        /* border-radius: 3%; */
+        /* visibility: hidden; */
+
+    }
+
+    .left ul {
+        margin-top: 0;
+    }
+</style>
+
+<body>
+    <div class="con">
+        <div class="left">
+
+            <ul class="leftUl">
+                <li>
+                    <img src="./考核素材/images/t1.png">
+                </li>
+                <li>
+                    <img src="./考核素材/images/t2.png">
+                </li>
+                <li>
+                    <img src="./考核素材/images/t3.png">
+                </li>
+                <li>
+                    <img src="./考核素材/images/t4.png">
+                </li>
+                <li>
+                    <img src="./考核素材/images/t5.png">
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="on"></div>
+            <ul class="imges">
+                <li class="box "><img src="./考核素材/images/t1.png" alt=""></li>
+                <li class="box "><img src="./考核素材/images/t2.png" alt=""></li>
+                <li class="box"><img src="./考核素材/images/t3.png" alt=""></li>
+                <li class="box"><img src="./考核素材/images/t4.png" alt=""></li>
+                <li class="box"><img src="./考核素材/images/t5.png" alt=""></li>
+        </div>
+
+    </div>
+    </div>
+
+</body>
+
+
+<script>
+    //第一题
+        function fn(str) {
+            var arr;
+            arr = str.toString().split('')
+    
+            var sum = 0;
+    
+            if (arr < 10) {
+    
+                return arr + "=>" + arr;
+    
+            } else {
+    
+    
+                for (var i = 0; i < arr.length; i++) {
+    
+                    sum += Number(arr[i])
+                }
+                if (sum < 10) {
+    
+                    return arr.join("") + "=>" + arr.join("+") + "=>" + sum
+    
+                }
+    
+                if (sum > 10) {
+                    return arr.join("") + "=>" + arr.join("+") + "=>" + fn(sum)
+                }
+    
+                // fn(sum)
+            }
+    
+        }
+    
+    
+        console.log(fn(9)); // 输出 23 => 2 + 3 => 5
+        console.log(fn(23)); // 输出 23 => 2 + 3 => 5
+        console.log(fn(2349)); // 输出 2349 => 2 + 3 + 4 + 9 => 18 => 1 + 8 => 9
+        console.log(fn(439331)); // 输出 439331 => 4 + 3 + 9 + 3 + 3 + 1 => 23 => 2 + 3 => 5 
+    </script>
+    
+    
+    <script>
+        console.log("");
+        console.log("");
+        console.log("");
+        
+        //第二题
+        function foo(a){
+        var arr=a
+        var newArr=[]
+        var newArr2=[]
+        
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr.indexOf(arr[i]) !==arr.lastIndexOf(arr[i])) {
+                        newArr.push(arr[i])
+                        for(var j=0;j<newArr.length;j++){
+                            if(newArr2.indexOf(newArr[j])===-1){
+                                newArr2.push(newArr[j])
+                            }
+                        }
+                    }
+                }
+                console.log(newArr2.sort());
+        }
+        
+         foo( [1,2,4,4,3,3,1,5,3] ) //输出结果 [1, 3 , 4]
+         foo( [10,20,30] ) //输出结果 []
+         foo( [30,20,30,20,10,20,50,75,10] ) //输出结果 [10, 20, 30]
+    </script>
+    
+    
+    <script>
+        console.log("");
+        console.log("");
+        console.log("");
+        
+        //第三题
+        function jq(str) {
+            var arr;
+            var reg = /a=1&b=2&c=&d=xxx&e/g;
+            var res;
+            while (res = reg.exec(str)) {
+    
+                var data = {}
+                arr = res[0].split("&")
+                // console.log(arr);
+                for (var i = 0; i < arr.length; i++) {
+                    var j = arr[i].split("=")
+                    data[j[0]] = j[1]
+                }
+                return console.log(data);
+                
+            }
+        }
+        str = 'getUrlParam( "https://item.taobao.com/item.html?a=1&b=2&c=&d=xxx&e")'
+        jq(str);
+    
+    </script>
+
+
+<script src="./animate.js"></script>
+<script>
+    var box = document.querySelectorAll(".box")
+    var on = document.querySelector(".on")
+    var leftUl = document.querySelector(".leftUl")
+    var leftLi = document.querySelectorAll(".left ul li")
+
+    
+
+
+    var arrHeight = [];
+    var arrHeight2 = [];
+
+    box[0].style.opacity=1
+    // 获取所有楼层的offsetTop值
+    for (var i = 0; i < box.length; i++) {
+        arrHeight.push(box[i].offsetTop);
+    }
+
+
+    for (var i = 0; i < leftLi.length; i++) {
+        arrHeight2.push(leftLi[i].offsetTop);
+    }
+
+
+    for (var i = 0; i < box.length; i++) {
+        // 设置自定义属性
+        box[i].dataset.index = i;
+        // 绑定事件
+        box[i].onclick = function () {
+
+            // 获取自定义属性
+            var index = this.dataset.index;
+            for(var j=0;j<box.length;j++){
+                box[j].style.opacity=0.5
+            }
+            box[index].style.opacity=1
+
+            // 页面滚动
+            animate(on, {
+                // marginTop: arrHeight[i],
+                marginTop: arrHeight[index] - 53,
+            },);
+
+
+            animate(leftUl, {
+                marginTop: -arrHeight2[index],
+            },);
+
+        }
+    }
+
+
+</script>
+
+</html>

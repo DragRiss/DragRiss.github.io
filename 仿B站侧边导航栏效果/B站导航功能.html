@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        body {
+            font-size: 30px;
+        }
+
+        .container {
+            width: 80vw;
+            margin: 0 auto;
+        }
+
+        header {
+            height: 100px;
+            line-height: 100px;
+            background: gray;
+            text-align: center;
+        }
+
+        .lift {
+            /* vh(viewport height)是视口单位  100vh代表整个视口的高度 */
+            height: 100vh;
+            text-align: center;
+            line-height: 100vh;
+        }
+
+        .lift1 {
+            background: pink;
+        }
+
+        .lift2 {
+            background: skyblue;
+        }
+
+        .lift3 {
+            background: lightgreen;
+        }
+
+        .lift4 {
+            background: orange;
+        }
+
+        .lift5 {
+            background: purple;
+        }
+
+        .lift6 {
+            background: chocolate;
+        }
+
+        .lift7 {
+            background: aqua;
+        }
+
+        .lift8 {
+            background: tomato;
+        }
+
+        .lift9 {
+            background: yellow;
+        }
+
+        .lift10 {
+            background: gold;
+        }
+
+        .lift11 {
+            background: deeppink;
+        }
+
+        .sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            height: 408px;
+            margin-top: -204px;
+        }
+
+        .sidebar ul li {
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+            position: relative;
+            cursor: pointer;
+            background: white;
+        }
+
+        .sidebar ul li span {
+            width: 32px;
+            height: 32px;
+            background: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: white;
+            display: none;
+        }
+
+        .sidebar ul li.active span {
+            display: block;
+        }
+
+        .sidebar ul .backUp {
+            background: red;
+            color: white;
+        }
+
+        footer {
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: #99cccc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>页面头部</header>
+
+    <!-- 内容层 -->
+    <div class="container">
+        <div class="lift lift1">直播</div>
+        <div class="lift lift2">动画</div>
+        <div class="lift lift3">番剧</div>
+        <div class="lift lift4">音乐</div>
+        <div class="lift lift5">舞蹈</div>
+        <div class="lift lift6">游戏</div>
+        <div class="lift lift7">科技</div>
+        <div class="lift lift8">生活</div>
+        <div class="lift lift9">鬼畜</div>
+        <div class="lift lift10">时尚</div>
+        <div class="lift lift11">广告</div>
+    </div>
+
+    <!-- 底部 -->
+    <footer>页面底部</footer>
+
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <ul>
+            <!-- (li{$F}>span)*11 -->
+            <li>1F<span>直播</span></li>
+            <li>2F<span>动画</span></li>
+            <li>3F<span>番剧</span></li>
+            <li>4F<span>音乐</span></li>
+            <li>5F<span>舞蹈</span></li>
+            <li>6F<span>游戏</span></li>
+            <li>7F<span>科技</span></li>
+            <li>8F<span>生活</span></li>
+            <li>9F<span>鬼畜</span></li>
+            <li>10F<span>时尚</span></li>
+            <li>11F<span>广告</span></li>
+            <li class="backUp">Top</li>
+        </ul>
+    </div>
+
+    <script>
+        // 获取dom对象的方法
+        function $(cssSelector) {
+            var dom = document.querySelectorAll(cssSelector);
+
+            if (dom.length === 0) {
+                return null;
+            }
+
+            if (dom.length === 1) {
+                return dom[0];
+            }
+
+            return dom;
+        }
+        // 获取相关dom对象
+        var lifts = $(".lift");
+        var sidebarLis = $(".sidebar ul li");
+
+        // 定义一个数组变量
+        var arrHeight = [];
+        // 获取所有楼层的offsetTop值
+        for (var i = 0; i < lifts.length; i++) {
+            arrHeight.push(lifts[i].offsetTop);
+        }
+
+        // 给页面绑定滚动事件
+        window.onscroll = function () {
+            // 获取页面垂直滚动距离
+            var curScrollTop = Math.floor(window.pageYOffset);
+            console.log(curScrollTop);
+            // 定义一个高亮楼层索引号
+            var index = -1;
+
+            // 倒序遍历
+            for (var i = arrHeight.length - 1; i >= 0; i--) {
+                if (curScrollTop >= arrHeight[i]) {
+                    index = i;
+                    break;
+                }
+            }
+
+            // 清除高亮
+            for (var j = 0; j < sidebarLis.length; j++) {
+                sidebarLis[j].classList.remove("active");
+            }
+
+            // 判断index的值是否为-1
+            if (index != -1) {
+                // 实现高亮
+                sidebarLis[index].classList.add("active");
+            }
+        };
+
+
+        // 循环给右侧电梯导航绑定事件
+        for (var i = 0; i < sidebarLis.length; i++) {
+            // 设置自定义属性
+            sidebarLis[i].dataset.index = i;
+            // 绑定事件
+            sidebarLis[i].onclick = function () {
+                // 判断是否含有.backUp类名
+                if (this.classList.contains("backUp")) {
+                    window.scroll({
+                        top: 0
+                    });
+                    return;
+                }
+                // 获取自定义属性
+                var index = this.dataset.index;
+
+                // 页面滚动
+                window.scroll({
+                    top: arrHeight[index],
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

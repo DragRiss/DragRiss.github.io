@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wb {
+            width: 500px;
+            height: 500px;
+            margin: 50px auto;
+        }
+
+        .wbrs {
+            width: 100px;
+            height: 30px;
+            line-height: 28px;
+            color: #d0d6ff;
+            text-align: center;
+            background: #3980ff;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+        }
+
+        ul {
+            width: 800px;
+
+        }
+
+        li {
+            padding-top: 10px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        a {
+            float: left;
+            text-decoration: none;
+            color: #1f1858;
+            font-size: 20px;
+        }
+
+        span {
+            float: right;
+            color: #e2e2e2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wb">
+        <div><button class="wbrs">获取微博热搜</button></div>
+        <ol>
+
+        </ol>
+    </div>
+</body>
+<script>
+    var btn = document.querySelector("button")
+    var ol = document.querySelector("ol")
+
+    btn.onclick = function () {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://v2.alapi.cn/api/new/wbtop?token=rtEGiZKF6ePFUHov&num=10")
+
+        xhr.send()
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+
+                var res = JSON.parse(xhr.responseText)
+                console.log(res);
+
+                var data=res.data;
+                if(data!==null){
+                    ol.innerHTML=data.map(function(item){
+                        return '<li><a href="'+item.url+'">'+item.hot_word+'</a><span>'+(item.hot_word_num/10000).toFixed(1)+'万</span></li>'
+
+                    }).join("")
+                }
+            }
+
+        }
+
+
+
+
+
+
+    }
+
+</script>
+
+</html>

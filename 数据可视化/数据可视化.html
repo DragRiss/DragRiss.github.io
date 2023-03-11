@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/echarts.js"></script>
+    <link rel="stylesheet" href="./css/数据可视化.css">
+</head>
+
+<body>
+    <div class="top"><span>全国旅游景点信息可视化系统</span>
+        <p>当前时间：</p>
+    </div>
+    <div class="con">
+
+        <div class="con-left">
+
+            <div class="container">
+                <div id="chart-container"></div>
+            </div>
+            <div class="container">
+                <div id="chart-container2"></div>
+            </div>
+            <div class="container">
+                <div id="chart-container3"></div>
+
+            </div>
+        </div>
+        <div class="conn-center">
+
+
+            <div class="mill">
+                <span class="num">6006</span><span class="num">2648</span>
+                <p><span>2019游客人数（千万人次）</span><span>2020游客人数（千万人次）</span></p>
+
+            </div>
+            <div class="container-c">
+
+                <div id="box" style=" height: 800px;"></div>
+
+            </div>
+            
+        </div>
+        <div class="con-right">
+            <div class="container">
+                <div id="chart-container4">
+
+                </div>
+            </div>
+            <div class="container">
+                <div id="chart-container5"></div>
+            </div>
+            <div class="container">
+                <div id="chart-container6" style="width: 100%;height: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    var dom7 = document.getElementById('chart-container5');
+    var myChart7 = echarts.init(dom7, 'dark', {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        backgroundColor: 'transparent',
+        title: {
+            text: 'Stacked Area Chart',
+            x: 'center',
+            textStyle: {
+                color: '#c2c6e7',
+
+            },
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            top: '5%',
+            legendStyle: {
+
+                color: '#c2c6e7',
+            },
+            data: ['最高气温', '最低气温']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: ['1月', '3月', '5月', '7月', '9月', '11月']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '最低气温',
+                type: 'line',
+                stack: 'Total',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [-3, 0, 10, 25, 18, -3]
+            },
+            {
+                name: '最高气温',
+                type: 'line',
+                stack: 'Total',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [5, 10, 25, 32, 20, 0]
+            },
+
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart7.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart7.resize);
+</script>
+
+<script>
+    var dom6 = document.getElementById('chart-container6');
+    var myChart6 = echarts.init(dom6, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        title: {
+            text: '热门景点地区分布',
+            x: 'center',
+            textStyle: {
+                color: '#c2c6e7',
+                fontSize: 25
+            }
+        },
+        legend: {
+            top: 'bottom',
+            textStyle: {
+                color: '#c2c6e7',
+
+            },
+        },
+        toolbox: {
+            show: true,
+
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        series: [
+            {
+                name: 'Nightingale Chart',
+                type: 'pie',
+                radius: [50, 80],
+                center: ['50%', '50%'],
+                roseType: 'area',
+                itemStyle: {
+                    borderRadius: 8
+                },
+                data: [
+                    { value: 28, name: '云南' },
+                    { value: 38, name: '北京' },
+                    { value: 32, name: '山东' },
+                    { value: 30, name: '河北' },
+                    { value: 24, name: '江苏' },
+                    { value: 16, name: '浙江' },
+                    { value: 20, name: '深圳' },
+                    { value: 40, name: '广东' }
+                ]
+            }
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart6.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart6.resize);
+</script>
+
+<script>
+    var dom5 = document.getElementById('chart-container4');
+    var myChart = echarts.init(dom5, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        title: {
+            text: '热门景点平均消费水平',
+            x: 'center',
+            textStyle: { color: 'white' }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+        },
+        legend: {
+            top: '10%'
+
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.1]
+        },
+        yAxis: {
+            type: 'category',
+            color: 'white',
+            data: ['北京', '上海', '天津', '杭州', '三亚']
+        },
+        series: [
+            {
+                // name: '2011',
+                type: 'bar',
+                data: [610, 725, 556, 648, 710],
+
+                borderRadius: '5',
+                borderWidth: 3,
+                borderType: 'solid',
+
+
+            },
+
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+
+<script>
+    var dom = document.getElementById('chart-container');
+    var myChart = echarts.init(dom, 'dark', {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        backgroundColor: 'transparent',
+        title: [{
+            text: '热门城市旅游人数',
+            subtext: '2019年   2018年',
+            subtextStyle: {
+                color: 'white',
+                fontSize: 16,
+            },
+            x: 'center',
+            color: 'blue'
+        }],
+
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: ['哈尔滨', ' ', '天津', ' ', '北京', ' ', '上海'],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                color: 'red'
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+
+            {
+                color: '#288bce',
+                name: 'Direct',
+                borderRadius: '5',
+                borderWidth: 1,
+                borderType: 'solid',
+                type: 'bar',
+                barWidth: '60%',
+                data: [250, 300, 300, 900, 1500, 1200, 600]
+            }
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
+
+
+
+
+</script>
+
+<script>
+    var dom2 = document.getElementById('chart-container2');
+    var myChart2 = echarts.init(dom2, 'dark', {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        backgroundColor: 'transparent',
+
+        title: {
+            text: '游客人数变化',
+
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            legendStyle: {
+                paddingLeft: 10
+            },
+            data: ['新增游客人数', '去年游客人数']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['1月', '3月', '5月', '7月', '9月', '11月']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '新增游客人数',
+                type: 'line',
+                stack: 'Total',
+                data: [120, 132, 101, 134, 90, 330],
+                color: '#9ad8eb'
+            },
+            {
+                name: '去年游客人数',
+                type: 'line',
+                stack: 'Total',
+                data: [100, 182, 231, 234, 290, 100],
+                color: '#653d5e'
+            },
+
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart2.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+
+<script>
+    var dom3 = document.getElementById('chart-container3');
+    var myChart3 = echarts.init(dom3, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        backgroundColor: 'transparent',
+        title: [
+            {
+                text: '游客年龄分布',
+                x: 'center',
+                top: '5%',
+                textStyle: {
+                    color: '#c2c6e7',
+                    fontSize: 25
+                }
+            }
+        ],
+
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            bottom: '5%',
+            left: 'center',
+            textStyle: {
+                color: '#c2c6e7',
+            }
+        },
+        series: [
+            {
+                name: 'Access From',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: 40,
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    { value: 10, name: '0-17岁' },
+                    { value: 35, name: '18-29岁' },
+                    { value: 20, name: '30-39岁' },
+                    { value: 20, name: '40-49岁' },
+                    { value: 10, name: '其他' }
+                ]
+            }
+        ]
+    };
+
+
+    if (option && typeof option === 'object') {
+        myChart3.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+
+<script src="./js/map/js/china.js"></script>
+
+<script>
+    // 初始化echarts实例
+    var myEcharts = echarts.init(document.getElementById("box"));
+    var option = {
+        title: {  //标题样式
+            text: '',
+            x: "center",
+            textStyle: {
+                fontSize: 18,
+                color: "null"
+            },
+        },
+        tooltip: {  //这里设置提示框
+            trigger: 'item',  //数据项图形触发
+            backgroundColor: "skyblue",  //提示框浮层的背景颜色。
+            //字符串模板(地图): {a}（系列名称），{b}（区域名称），{c}（合并数值）,{d}（无）
+            formatter: '地区：{b}<br/>模拟数据：{c}'
+        },
+        visualMap: {//视觉映射组件
+            top: 'center',
+            left: 'left',
+            min: 10,
+            max: 500000,
+            text: ['High', 'Low'],
+            realtime: false,  //拖拽时，是否实时更新
+            calculable: true,  //是否显示拖拽用的手柄
+            inRange: {
+                color: ['lightskyblue', 'yellow', 'orangered']
+            }
+        },
+        series: [
+            {
+                name: '模拟数据',
+                type: 'map',
+                mapType: 'china',
+                roam: false,//是否开启鼠标缩放和平移漫游
+                itemStyle: {//地图区域的多边形 图形样式
+                    normal: {//是图形在默认状态下的样式
+                        label: {
+                            show: true,//是否显示标签
+                            textStyle: {
+                                color: "black"
+                            }
+                        }
+                    },
+                    zoom: 1.5,  //地图缩放比例,默认为1
+                    emphasis: {//是图形在高亮状态下的样式,比如在鼠标悬浮或者图例联动高亮时
+                        label: { show: true }
+                    }
+                },
+                top: "3%",//组件距离容器的距离
+                data: [
+                    { name: '北京', value: 350000 },
+                    { name: '天津', value: 120000 },
+                    { name: '上海', value: 300000 },
+                    { name: '重庆', value: 92000 },
+                    { name: '河北', value: 25000 },
+                    { name: '河南', value: 20000 },
+                    { name: '云南', value: 500 },
+                    { name: '辽宁', value: 3050 },
+                    { name: '黑龙江', value: 80000 },
+                    { name: '湖南', value: 2000 },
+                    { name: '安徽', value: 24580 },
+                    { name: '山东', value: 40629 },
+                    { name: '新疆', value: 36981 },
+                    { name: '江苏', value: 13569 },
+                    { name: '浙江', value: 24956 },
+                    { name: '江西', value: 15194 },
+                    { name: '湖北', value: 41398 },
+                    { name: '广西', value: 41150 },
+                    { name: '甘肃', value: 17630 },
+                    { name: '山西', value: 27370 },
+                    { name: '内蒙古', value: 27370 },
+                    { name: '陕西', value: 97208 },
+                    { name: '吉林', value: 88290 },
+                    { name: '福建', value: 19978 },
+                    { name: '贵州', value: 94485 },
+                    { name: '广东', value: 89426 },
+                    { name: '青海', value: 35484 },
+                    { name: '西藏', value: 97413 },
+                    { name: '四川', value: 54161 },
+                    { name: '宁夏', value: 56515 },
+                    { name: '海南', value: 54871 },
+                    { name: '台湾', value: 48544 },
+                    { name: '香港', value: 49474 },
+                    { name: '澳门', value: 34594 }
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myEcharts.setOption(option);
+</script>
+
+</html>

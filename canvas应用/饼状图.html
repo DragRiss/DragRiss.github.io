@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #canvas {
+      border: 1px solid lightgray;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="500" height="300"></canvas>
+</body>
+<script>
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext('2d');
+
+var data=[50,20,30,40]
+
+var colors=["#FF6384", "#36A2EB", "#FFCE56","#ff2233"];
+ 
+var total=0
+for(var i=0;i<data.length;i++){
+  total+=data[i]
+}
+
+var X=canvas.width/2
+var Y = canvas.height / 2;
+var radius = Math.min(X, Y) * 0.8;
+
+var startAngle = 0;
+for (var i = 0; i < data.length; i++) {
+  var sliceAngle = 2* Math.PI * data[i] / total;
+  var endAngle = startAngle + sliceAngle;
+
+  context.beginPath();
+  context.moveTo(X, Y);
+  context.arc(X, Y, radius, startAngle, endAngle);
+  context.closePath();
+  context.fillStyle = colors[i];
+  context.fill();
+  startAngle = endAngle;
+}
+
+</script>
+
+</html>
