@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+
+        body {
+            background: url(./images/bg.jpg) no-repeat;
+            /* 背景定位 */
+            background-position: center top;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 视口单位  把页面高度分成100份  100vh就表示整个页面的高度 */
+            height: 100vh;
+        }
+
+        .box {
+            width: 1089px;
+            height: 429px;
+        }
+
+        .box ul {
+            display: flex;
+        }
+
+        .box ul li {
+            width: 100px;
+            height: 429px;
+        }
+
+        .box ul li:nth-child(1) {
+            width: 789px;
+            background: url(./images/1.jpg);
+        }
+
+        .box ul li:nth-child(2) {
+            background: url(./images/2.jpg);
+        }
+
+        .box ul li:nth-child(3) {
+            background: url(./images/3.jpg);
+        }
+
+        .box ul li:nth-child(4) {
+            background: url(./images/4.jpg);
+        }
+
+        .box ul li p {
+            font-size: 16px;
+            width: 16px;
+            padding-left: 42px;
+            padding-right: 42px;
+            height: 357px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding-top: 72px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li class="item">
+                <p>我的个人拉萨之旅｜｜故事之城</p>
+            </li>
+            <li class="item">
+                <p>我的个人拉萨之旅｜｜故事之城</p>
+            </li>
+            <li class="item">
+                <p>我的个人拉萨之旅｜｜故事之城</p>
+            </li>
+            <li class="item">
+                <p>我的个人拉萨之旅｜｜故事之城</p>
+            </li>
+        </ul>
+    </div>
+
+    <script src="./animate.js"></script>
+    <script>
+
+
+
+        var items = document.querySelectorAll(".box ul .item");
+        for (var i = 0; i < items.length; i++) {
+            items[i].onclick = function () {
+                for (var j = 0; j < items.length; j++) {
+                    animate(items[j], {
+                        width: 100
+                    });
+                }
+
+                animate(this, {
+                    width: 787.5
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
