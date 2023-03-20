@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="before">
+                <!-- 设置底图，显示在右侧 -->
+                <img class="content-image" src="./image/before.jpg" draggable="false">
+            </div>
+            <!-- 左侧图 ，设置行内宽以用于拖拽改变宽度来显示-->
+            <div class="after" style="width: 467.95px;">
+                <img class="content-image" src="./image/after.jpg" draggable="false">
+            </div>
+            <!-- 中间滚动条 -->
+            <!-- 鼠标按下时给他加类名，并触发事件 -->
+            <div class="scroller" style="left: 242.95px;">
+                <svg class="scroller__thumb" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                    viewBox="0 0 100 100">
+                    <!-- svg画俩（多边形）三角形 -->
+                    <polygon points="0 50 37 68 37 32 0 50" style="fill:#fff"></polygon>
+                    <polygon points="100 50 64 32 64 68 100 50" style="fill:#fff"></polygon>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+
+</body>
+
+</html>

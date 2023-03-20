@@ -649,6 +649,13 @@ nav#filter a {
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
+.portfolio-item .icon-lianjie{
+font-size: 30px;
+float: right;
+position: relative;
+bottom: 40px;
+z-index: 1;
+}
 .portfolio-item img {
 	-webkit-transition: all 300ms linear;
 	-moz-transition: all 300ms linear;
