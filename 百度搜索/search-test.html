@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="logo">
+            <img src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" alt="">
+
+        </div>
+        <div class="search">
+            <input type="text" v-model="text" :style="StyleS">
+            <button @click="baidu(text)"><a :href="hrefs" target="_blank">百度一下</a></button>
+        </div>
+        <ul id="searchUl" v-show="flag" :style="StyleS2">
+            <li v-for=" item in ans" @click="baidu(item.q)"><a :href="hrefs" target="_blank"
+                    rel="noopener noreferrer">{{item.q}}</a></li>
+        </ul>
+    </div>
+</body>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            text: '',
+            ans: [],
+            flag: true,
+            StyleS: {
+                borderRadius: '10px 0 0 10px',
+                border: '2px solid #c4c7ce',
+            },
+            StyleS2: {
+                border: '1px solid #4e6ef2',
+            },
+            hrefs: ''
+
+
+
+        },
+        computed: {
+            newText: function () {
+                if (!(this.text))
+                    this.StyleS2 = {
+                        border: 'none',
+                    }
+
+                return this.text.trim()
+            }
+
+        },
+        watch: {
+            newText: function (text) {
+
+                if (text) {
+                    this.flag = true
+                    this.StyleS = {
+                        borderRadius: '0',
+                        border: '1px solid #4e6ef2',
+                        borderBottom: 'none',
+                    },
+                        this.StyleS2 = {
+                            border: '1px solid #4e6ef2',
+                        }
+
+                    axios.get('https://www.baidu.com/sugrec', {
+                        params: {
+                            pre: 1,
+                            p: 3,
+                            ie: "utf-8",
+                            prod: "pc",
+                            from: "pc_web",
+                            req: 2,
+                            csor: 2,
+                            wd: text,
+                        },
+                    })
+                        .then((res) => {
+                            // console.log(res.data)
+                            this.ans = res.data.g
+                            if (res.data.g == null) {
+                                this.StyleS = {
+                                    borderRadius: '10px 0 0 10px',
+                                    border: '1px solid #c4c7ce',
+                                }, this.StyleS2 = {
+                                    border: 'none',
+                                }
+
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+
+                        })
+                } else {
+                    this.ans = []
+                    this.flag = false
+                    this.StyleS = {
+                        borderRadius: '10px 0 0 10px',
+                        border: '1px solid #c4c7ce',
+                    }
+
+
+                }
+            }
+        },
+
+        methods: {
+            baidu(res) {
+                this.hrefs = 'https://www.baidu.com/s?wd=' + res
+                // console.log(res);
+
+            }
+        },
+    })
+
+</script>
+
+</html>
